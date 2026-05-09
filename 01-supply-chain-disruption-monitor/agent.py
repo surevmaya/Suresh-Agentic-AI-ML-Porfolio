@@ -36,7 +36,7 @@ TOOLS = [
         "input_schema": {
             "type": "object",
             "properties": {
-                "query": {
+                "region": {
                     "type": "string",
                     "description": "Search query e.g. 'tariffs,oil shortages and other geopolitical disruptions'"
                 },
@@ -45,7 +45,7 @@ TOOLS = [
                     "description": "How many days back to search, default 7"
                 }
             },
-            "required": ["query"]
+            "required": ["region"]
         }
     },
 
