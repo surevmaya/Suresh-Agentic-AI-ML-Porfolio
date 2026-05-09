@@ -44,6 +44,42 @@ URL: {article['url']}
     except Exception as e:
         return f"Error searching news: {e}"
 
+def search_geopolitical_risks(region: str) -> str:
+    """Search for geopolitical risks affecting supply chains"""
+    api_key = os.getenv("NEWS_API_KEY")
+    query = f"{region} tariffs sanctions trade war oil price disruption geopolitical"
+
+    url = "https://newsapi.org/v2/everything"
+    params = {
+        "q": query,
+        "from": (datetime.now() - timedelta(days=14)).strftime("%Y-%m-%d"),
+        "sortBy": "relevancy",
+        "language": "en",
+        "pageSize": 5,
+        "apiKey": api_key
+    }
+
+    try:
+        response = requests.get(url, params=params)
+        data = response.json()
+        articles = data.get("articles", [])
+
+        if not articles:
+            return f"No geo risk found for {region}"
+
+        results = []
+        for article in articles[:3]:
+            results.append(f"""
+Title: {article['title']}
+Date: {article['publishedAt'][:10]}
+Summary: {article['description']}
+""")
+        return "\n---\n".join(results)
+
+    except Exception as e:
+        return f"Error searching geopolitical risks: {e}"
+
+
 
 def search_weather_disruptions(region: str) -> str:
     """Search for weather events affecting supply chains"""
