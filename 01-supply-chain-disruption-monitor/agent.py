@@ -29,6 +29,27 @@ TOOLS = [
             "required": ["query"]
         }
     },
+
+{
+        "name": "search_geopolitical_risks",
+        "description": "Search recent news for geopolitical risks",
+        "input_schema": {
+            "type": "object",
+            "properties": {
+                "query": {
+                    "type": "string",
+                    "description": "Search query e.g. 'tariffs,oil shortages and other geopolitical disruptions'"
+                },
+                "days_back": {
+                    "type": "integer",
+                    "description": "How many days back to search, default 7"
+                }
+            },
+            "required": ["query"]
+        }
+    },
+
+    
     {
         "name": "search_weather_disruptions",
         "description": "Search for weather events affecting supply chains",
