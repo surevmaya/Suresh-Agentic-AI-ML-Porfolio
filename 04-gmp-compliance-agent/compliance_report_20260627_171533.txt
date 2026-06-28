@@ -1,0 +1,140 @@
+
+╔══════════════════════════════════════════════════════════════════════════╗
+║           GMP COMPLIANCE AUDIT REPORT - SAP S/4HANA INTEGRATION          ║
+╚══════════════════════════════════════════════════════════════════════════╝
+
+AUDIT DETAILS
+─────────────────────────────────────────────────────────────────────────
+Audit Date/Time:        2026-06-27T17:15:33.468344
+Process Order ID:       4500012345
+Overall Status:         NON-COMPLIANT
+Critical Findings:      2
+Major Findings:         1
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1. PROCESS TIME ANALYSIS
+─────────────────────────────────────────────────────────────────────────
+
+   Operation 0010: MIXING PHASE - ACTIVE PHARMACEUTICAL INGREDIENT
+   ├─ Standard Duration:     45 minutes (SOP requirement)
+   ├─ Actual Duration:       28 minutes
+   ├─ Deviation:             17 minutes (37.78%)
+   └─ Status:                ✗ CRITICAL
+
+   Operation 0020: COOLING PHASE
+   ├─ Standard Duration:     30 minutes (SOP requirement)
+   ├─ Actual Duration:       31 minutes
+   ├─ Deviation:             -1 minutes (-3.33%)
+   └─ Status:                ✓ OK
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+2. EQUIPMENT CALIBRATION COMPLIANCE
+─────────────────────────────────────────────────────────────────────────
+
+   Equipment: MIXER-001
+   ├─ Description:          High-Shear Mixing Vessel Unit A
+   ├─ Cert Number:          CAL-MIXER-001-2025
+   ├─ Cert Type:            TEMPERATURE_PRESSURE
+   ├─ Issued Date:          2024-12-15
+   ├─ Expiry Date:          2025-06-10
+   ├─ Days Expired:         382 days
+   └─ Status:               ✗ EXPIRED
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+3. QUALITY DEVIATIONS & NOTIFICATIONS
+─────────────────────────────────────────────────────────────────────────
+   Total Deviations:       1
+   Open Deviations:        1
+   Critical Issues:        1
+
+   OPEN DEVIATIONS:
+
+   ├─ QM Number:            0090045678
+   ├─ Description:          PROCESS TIME DEVIATION - MIXING PHASE
+   ├─ Severity:             HIGH
+   ├─ Created:              2025-06-15
+   └─ Details:              Actual process duration 28 minutes significantly below SOP requirement of 45 minutes. Potential impact on mixing homogeneity and API dissolution.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+4. BATCH QUALITY STATUS
+─────────────────────────────────────────────────────────────────────────
+
+   Batch ID:                BATCH-2025-0615-001
+   ├─ Batch Status:         HOLD
+   ├─ QA Status:            REJECTED
+   ├─ MFG Date:             2025-06-15
+   ├─ Exp Date:             2027-06-14
+   ├─ Overall Status:       FAILED
+   ├─ Failed Tests:         1
+   └─ Hold Reason:          Process deviation - insufficient mixing time and expired equipment calibration
+
+   TEST RESULTS:
+
+   ├─ Content Assay - Active Pharmaceutical Ingredient
+   │  ├─ Result:            96.8 %
+   │  ├─ Spec Range:        95.0-105.0
+   │  ├─ Status:            ✗ FAILED
+   │  └─ Remarks:           Result indicates incomplete dissolution/mixing of active ingredient
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+5. COMPLIANCE FINDINGS & CORRECTIVE ACTIONS
+─────────────────────────────────────────────────────────────────────────
+
+   ⚠ OVERALL STATUS: NON-COMPLIANT
+
+   CRITICAL FINDINGS: 2
+
+   IDENTIFIED ISSUES:
+
+   • PROCESS TIME DEVIATION
+     Process Operation: 0010 - MIXING PHASE - ACTIVE PHARMACEUTICAL INGREDIENT
+     - Actual duration: 28 minutes
+     - SOP requirement: 45 minutes
+     - Deviation: 17 minutes (37.78%)
+     - Impact: Potential impact on product homogeneity and API dissolution
+     - Required Action: Investigate root cause and implement corrective action
+     - Timeline: Within 14 days
+     - Evidence: Batch hold, rework evaluation, or disposition decision required
+
+   • EXPIRED EQUIPMENT CALIBRATION
+     Equipment: MIXER-001 - High-Shear Mixing Vessel Unit A
+     - Expiry Date: 2025-06-10
+     - Days Expired: 382
+     - Compliance Status: EXPIRED
+     - Impact: Equipment used in batch production with invalid calibration
+     - Required Action:
+       1. Immediate quarantine of affected batches
+       2. Re-calibration of equipment with certification
+       3. Impact assessment on all batches produced during expiration period
+     - Timeline: Calibration within 7 days; Impact assessment within 14 days
+     - Evidence: Calibration certificate, batch investigation report
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+6. RECOMMENDATIONS & NEXT STEPS
+─────────────────────────────────────────────────────────────────────────
+
+   Immediate Actions (0-7 days):
+   ├─ Escalate findings to Quality Assurance and Production Management
+   ├─ Place affected batch(es) on quality hold pending investigation
+   ├─ Schedule equipment re-calibration
+   └─ Initiate root cause analysis (5-Why or equivalent)
+
+   Short-term Actions (1-4 weeks):
+   ├─ Complete corrective and preventive actions (CAPA)
+   ├─ Re-test affected batches if rework is approved
+   ├─ Update SOPs if process parameter changes are made
+   ├─ Conduct training on updated procedures
+   └─ Submit completion report to Quality Assurance
+
+   Follow-up Verification:
+   ├─ 30-day verification of corrective actions
+   ├─ Enhanced monitoring for next 3 batches
+   └─ Next audit scheduled: 30 days
+
+╚══════════════════════════════════════════════════════════════════════════╝
