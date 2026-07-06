@@ -1,56 +1,46 @@
-# Flask Authentication App
+# Supply Chain Control Tower — Flask Auth Demo
 
-A secure Flask web application with user authentication, session management, and a supply chain control tower dashboard.
+A production-oriented authentication demo for a semiconductor supply chain management system. Built to showcase secure credential handling, environment-based configuration, and Flask session management.
+
+## What This Demo Shows
+
+- **Environment-based Configuration** — Sensitive values (secret keys, password hashes) loaded via `python-dotenv` from `.env`, not hardcoded.
+- **Hashed Credentials** — Werkzeug `scrypt` key derivation for password hashing (`generate_password_hash` / `check_password_hash`).
+- **Flask Session Auth** — Decorator-based route protection (`@login_required`), session-based login state, and secure logout.
+- **Responsive Login UI** — Dark-themed login form with real-time validation, error handling, and loading states.
+- **Protected Routes** — Dashboard and API endpoints blocked until authenticated.
 
 ## Quick Start
 
-### 1. Create and activate virtual environment
-```bash
-python3 -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-```
+1. **Set up a virtual environment:**
+   ```bash
+   python -m venv venv
+   source venv/bin/activate  # On Windows: venv\Scripts\activate
+   ```
 
-### 2. Install dependencies
-```bash
-pip install -r requirements.txt
-```
+2. **Install dependencies:**
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-### 3. Set up environment variables
-```bash
-cp .env.example .env
-```
+3. **Configure environment:**
+   ```bash
+   cp .env.example .env
+   ```
 
-### 4. Run the app
-```bash
-flask run
-```
+4. **Run the app:**
+   ```bash
+   python app.py
+   ```
+   Open http://localhost:5000 in your browser.
 
-The app will be available at `http://localhost:5000`
+5. **Demo login:**
+   - **Username:** `admin`
+   - **Password:** `admin123`
 
-## Demo Credentials
+## Tech Stack
 
-- **Username:** admin
-- **Password:** admin123
-
-## Features
-
-- **Secure Authentication:** Passwords hashed with werkzeug.security (scrypt)
-- **Session Management:** User sessions stored securely
-- **Protected Routes:** Dashboard requires login
-- **Environment Configuration:** Secrets stored in .env (not in code)
-- **Supply Chain Dashboard:** Interactive simulator for semiconductor inventory management
-
-## Architecture
-
-- `app.py` - Flask application with routes and authentication logic
-- `templates/` - HTML templates (login, dashboard)
-- `requirements.txt` - Python dependencies
-- `.env` - Environment variables (credentials, secrets) — not committed to git
-- `.env.example` - Template for environment variables
-
-## Security Notes
-
-- Never commit `.env` to version control (already in .gitignore)
-- Generate a new `SECRET_KEY` for production: `python -c "import secrets; print(secrets.token_hex(32))"`
-- Change `DEMO_PASSWORD_HASH` in production with your own credentials
-- Passwords are never stored in plaintext—always hashed with `generate_password_hash()`
+- **Framework:** Flask 3.0.0
+- **Security:** Werkzeug 3.0.1 (scrypt hashing)
+- **Config:** python-dotenv 1.0.0
+- **Runtime:** Python 3.9+
