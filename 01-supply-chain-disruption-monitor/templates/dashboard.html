@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Supply Chain Risk Monitor</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Supply Chain Risk Monitor</h1>
+            <p>AI-powered disruption detection for enterprise procurement</p>
+        </header>
+
+        <div class="controls">
+            <select id="commodity">
+                {% for comm, regions in commodities.items() %}
+                <option value="{{ comm }}">{{ comm.title() }}</option>
+                {% endfor %}
+            </select>
+
+            <select id="region"></select>
+
+            <label class="toggle">
+                <input type="checkbox" id="liveMode">
+                <span>Live Mode (API)</span>
+            </label>
+
+            <button onclick="runMonitor()">Run Monitor</button>
+        </div>
+
+        <div id="loading" class="hidden">Scanning data sources...</div>
+
+        <div id="results" class="hidden">
+            <div class="risk-header">
+                <h2 id="headline"></h2>
+                <div class="risk-score" id="riskScore"></div>
+            </div>
+
+            <div class="meta">
+                <span id="commodityLabel"></span> &bull; 
+                <span id="regionLabel"></span> &bull; 
+                <span id="timestamp"></span>
+                <span id="modeBadge" class="badge"></span>
+            </div>
+
+            <h3>Active Alerts</h3>
+            <div id="alerts"></div>
+        </div>
+    </div>
+
+    <script>
+        const commodityRegions = {{ commodities | tojson }};
+        
+        function updateRegions() {
+            const comm = document.getElementById('commodity').value;
+            const regionSel = document.getElementById('region');
+            regionSel.innerHTML = commodityRegions[comm]
+                .map(r => `<option value="${r}">${r}</option>`)
+                .join('');
+        }
+        
+        document.getElementById('commodity').addEventListener('change', updateRegions);
+        updateRegions();
+
+        async function runMonitor() {
+            const commodity = document.getElementById('commodity').value;
+            const region = document.getElementById('region').value;
+            const live = document.getElementById('liveMode').checked;
+            
+            document.getElementById('loading').classList.remove('hidden');
+            document.getElementById('results').classList.add('hidden');
+            
+            await new Promise(r => setTimeout(r, 1200));
+            
+            const res = await fetch(`/api/monitor?commodity=${commodity}&region=${region}&live=${live}`);
+            const data = await res.json();
+            
+            document.getElementById('loading').classList.add('hidden');
+            document.getElementById('results').classList.remove('hidden');
+            
+            document.getElementById('headline').textContent = data.headline;
+            const scoreEl = document.getElementById('riskScore');
+            scoreEl.textContent = data.base_risk;
+            scoreEl.className = 'risk-score ' + 
+                (data.base_risk > 70 ? 'critical' : data.base_risk > 45 ? 'elevated' : 'low');
+            
+            document.getElementById('commodityLabel').textContent = data.commodity.toUpperCase();
+            document.getElementById('regionLabel').textContent = data.region;
+            document.getElementById('timestamp').textContent = data.generated_at;
+            
+            const badge = document.getElementById('modeBadge');
+            badge.textContent = data.live_mode ? 'LIVE API' : 'DEMO DATA';
+            badge.className = 'badge ' + (data.live_mode ? 'live' : 'demo');
+            
+            document.getElementById('alerts').innerHTML = data.alerts.map(a => `
+                <div class="alert ${a[2].toLowerCase()}">
+                    <div class="alert-cat">${a[0]}</div>
+                    <div class="alert-msg">${a[1]}</div>
+                    <div class="alert-time">${a[3]}</div>
+                    <div class="alert-sev">${a[2]}</div>
+                </div>
+            `).join('');
+        }
+    </script>
+</body>
+</html>

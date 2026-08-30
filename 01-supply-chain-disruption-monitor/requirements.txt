@@ -1,3 +1,6 @@
 anthropic
 python-dotenv
 requests
+fastapi
+uvicorn
+jinja2
