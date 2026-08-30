@@ -17,4 +17,4 @@ Forward Deployed Engineer with 5+ years shipping production AI in enterprise
 environments. I embed with customer engineering teams to build, deploy, and 
 iterate from prototype to production.
 
-[LinkedIn] | [Email]
+[[LinkedIn](https://www.linkedin.com/in/suresh-veeraraghavan/)] | [suresh.veeraraghavan@woodsidesolutions.com l]
